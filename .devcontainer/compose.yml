@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  laravel-octane:
+    build: ./services/laravel-octane
+    environment:
+      DB_PASSWORD: tutorial
+      DB_PASSWORD_TESTING: tutorial
+      DB_HOST: mariadb
+      DB_HOST_TESTING: mariadb
+    tty: true
+    volumes:
+      - ../:/workspace:cached
+  mariadb:
+    build: ./services/mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: tutorial
+      MARIADB_DATABASE: tutorial
+      MARIADB_USER: tutorial
+      MARIADB_PASSWORD: tutorial
+      MARIADB_HOST: mariadb
+    restart: always
+    volumes:
+      - ./services/mariadb/initdb.d:/docker-entrypoint-initdb.d
